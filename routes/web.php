@@ -22,7 +22,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Expense management
-    Route::resource('expenses', ExpenseController::class)->except(['show']); // Index, Create, Store, Edit, Update, Destroy
+    Route::resource('expenses', ExpenseController::class); // Index, Create, Store, Edit, Update, Destroy
+
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
 });
 
 
