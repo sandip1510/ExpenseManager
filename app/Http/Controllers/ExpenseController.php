@@ -10,11 +10,24 @@ class ExpenseController extends Controller
     /**
      * Display a listing of expenses.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $expenses = Expense::latest()->get();
+        $query = Expense::where('user_id', auth()->id()); // Ensure users see only their expenses
+    
+        if ($request->filled('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+    
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+    
+        $expenses = $query->latest()->paginate(10);
+    
         return view('expenses.index', compact('expenses'));
     }
+    
+    
 
     /**
      * Show the form for creating a new expense.
@@ -36,7 +49,7 @@ class ExpenseController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        Expense::create($request->all());
+        auth()->user()->expenses()->create($request->all());
 
         return redirect()->route('expenses.index')->with('success', 'Expense added successfully!');
     }

@@ -3,6 +3,13 @@
 @section('content')
     <a href="{{ route('expenses.create') }}" class="btn btn-primary mb-3">Add Expense</a>
 
+    {{-- Filter Form --}}
+    <form method="GET" action="{{ route('expenses.index') }}" class="mb-3">
+        <input type="text" name="search" class="form-control mb-2" placeholder="Search title..." value="{{ request('search') }}">
+        <input type="date" name="date" class="form-control mb-2" value="{{ request('date') }}">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
