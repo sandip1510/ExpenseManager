@@ -10,6 +10,9 @@
         <button type="submit" class="btn btn-primary">Filter</button>
     </form>
 
+    <a href="{{ route('expenses.export') }}" class="btn btn-success">Export CSV</a>
+
+
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif

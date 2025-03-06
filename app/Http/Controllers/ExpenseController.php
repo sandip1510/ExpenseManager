@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Expense;
+use App\Models\Category;
 
 class ExpenseController extends Controller
 {
@@ -34,8 +35,10 @@ class ExpenseController extends Controller
      */
     public function create()
     {
-        return view('expenses.create');
+        $categories = Category::all();
+        return view('expenses.create', compact('categories'));
     }
+    
 
     /**
      * Store a newly created expense in storage.
@@ -49,7 +52,10 @@ class ExpenseController extends Controller
             'description' => 'nullable|string',
         ]);
 
-        auth()->user()->expenses()->create($request->all());
+        $expense = new Expense($request->only(['title', 'amount', 'date', 'description', 'category_id']));
+        $expense->user_id = auth()->id();
+        $expense->save();
+
 
         return redirect()->route('expenses.index')->with('success', 'Expense added successfully!');
     }

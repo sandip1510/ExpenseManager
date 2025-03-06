@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExpenseController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -23,5 +24,10 @@ Route::middleware('auth')->group(function () {
     // Expense management
     Route::resource('expenses', ExpenseController::class)->except(['show']); // Index, Create, Store, Edit, Update, Destroy
 });
+
+
+
+Route::get('/expenses/export', [ReportController::class, 'export'])->name('expenses.export');
+
 
 require __DIR__.'/auth.php';

@@ -20,6 +20,15 @@
             <label for="description" class="form-label">Description (Optional)</label>
             <textarea name="description" class="form-control"></textarea>
         </div>
+        <div class="mb-3">
+            <label for="category_id" class="form-label">Category</label>
+            <select name="category_id" class="form-control" required>
+                <option value="">Select Category</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <button type="submit" class="btn btn-success">Save Expense</button>
         <a href="{{ route('expenses.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
