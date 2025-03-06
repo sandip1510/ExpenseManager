@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Expense;
 use App\Models\Category;
 
@@ -33,9 +34,8 @@ class ExpenseController extends Controller
     /**
      * Show the form for creating a new expense.
      */
-    public function create()
-    {
-        $categories = Category::all();
+    public function create() {
+        $categories = Category::all(); // Fetch all categories
         return view('expenses.create', compact('categories'));
     }
     
@@ -43,21 +43,31 @@ class ExpenseController extends Controller
     /**
      * Store a newly created expense in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
+            'category_id' => 'required|exists:categories,id',
+            'amount' => 'required|numeric',
             'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
-
-        $expense = new Expense($request->only(['title', 'amount', 'date', 'description', 'category_id']));
-        $expense->user_id = auth()->id();
-        $expense->save();
-
-
+    
+        Expense::create([
+            'user_id' => Auth::id(), // Assign the currently logged-in user
+            'category_id' => $request->category_id,
+            'amount' => $request->amount,
+            'date' => $request->date,
+            'description' => $request->description,
+        ]);
+    
         return redirect()->route('expenses.index')->with('success', 'Expense added successfully!');
+    }
+    
+    public function addCategory(Request $request) {
+        $request->validate(['name' => 'required|unique:categories,name']);
+
+        $category = Category::create(['name' => $request->name]);
+
+        return response()->json($category);
     }
 
     /**
@@ -71,10 +81,11 @@ class ExpenseController extends Controller
     /**
      * Show the form for editing the specified expense.
      */
-    public function edit(Expense $expense)
-    {
-        return view('expenses.edit', compact('expense'));
+    public function edit(Expense $expense) {
+        $categories = Category::all(); // Fetch categories
+        return view('expenses.edit', compact('expense', 'categories'));
     }
+    
 
     /**
      * Update the specified expense in storage.
@@ -82,16 +93,22 @@ class ExpenseController extends Controller
     public function update(Request $request, Expense $expense)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:categories,id', // Validate category exists
             'amount' => 'required|numeric|min:0',
             'date' => 'required|date',
             'description' => 'nullable|string',
         ]);
-
-        $expense->update($request->all());
-
+    
+        $expense->update([
+            'category_id' => $request->category_id,
+            'amount' => $request->amount,
+            'date' => $request->date,
+            'description' => $request->description,
+        ]);
+    
         return redirect()->route('expenses.index')->with('success', 'Expense updated successfully!');
     }
+    
 
     /**
      * Remove the specified expense from storage.

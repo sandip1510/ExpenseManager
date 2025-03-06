@@ -28,7 +28,9 @@
                     <tbody>
                         @foreach($expenses as $expense)
                             <tr class="hover:bg-gray-50 transition">
-                                <td class="border px-4 py-3">{{ $expense->title }}</td>
+                                <!-- <td class="border px-4 py-3">{{ $expense->title }}</td> -->
+                                <td class="border px-4 py-3">{{ $expense->category->name }}</td>
+
                                 <td class="border px-4 py-3">${{ number_format($expense->amount, 2) }}</td>
                                 <td class="border px-4 py-3">{{ $expense->date }}</td>
                                 <td class="border px-4 py-3">

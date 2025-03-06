@@ -5,7 +5,7 @@
         <h3 class="text-2xl font-bold text-gray-800 border-b pb-2 mb-4">💰 Expense Details</h3>
 
         <div class="space-y-3 text-gray-700">
-            <p class="text-lg"><strong class="font-semibold">📌 Title:</strong> {{ $expense->title }}</p>
+            <p class="text-lg"><strong class="font-semibold">📌 Title:</strong>  {{ $expense->category->name }}</p>
             <p class="text-lg"><strong class="font-semibold">💵 Amount:</strong> 
                 <span class="text-green-600 font-bold">${{ number_format($expense->amount, 2) }}</span>
             </p>

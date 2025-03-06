@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('expenses', ExpenseController::class); // Index, Create, Store, Edit, Update, Destroy
 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::post('/add-category', [ExpenseController::class, 'addCategory'])->name('add.category');
+
 
 });
 
