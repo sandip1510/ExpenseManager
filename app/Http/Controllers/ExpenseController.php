@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Expense;
 use App\Models\Category;
+use App\Http\Requests\StoreExpenseRequest; // Import the Form Request class
 
 class ExpenseController extends Controller
 {
@@ -43,15 +44,12 @@ class ExpenseController extends Controller
     /**
      * Store a newly created expense in storage.
      */
-    public function store(Request $request) {
-        $request->validate([
-            'category_id' => 'required|exists:categories,id',
-            'amount' => 'required|numeric',
-            'date' => 'required|date',
-            'description' => 'nullable|string',
-        ]);
     
-        Expense::create([
+
+    public function store(StoreExpenseRequest $request) // Use the Form Request for validation
+    {
+        // Create the expense using the validated data
+        $expense = Expense::create([
             'user_id' => Auth::id(), // Assign the currently logged-in user
             'category_id' => $request->category_id,
             'amount' => $request->amount,
@@ -59,6 +57,7 @@ class ExpenseController extends Controller
             'description' => $request->description,
         ]);
     
+        // Redirect with a success message
         return redirect()->route('expenses.index')->with('success', 'Expense added successfully!');
     }
     
