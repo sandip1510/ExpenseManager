@@ -17,8 +17,17 @@ class ExpenseController extends Controller
 
     public function index(ExpenseDataTable $dataTable)
     {
-        return $dataTable->render('expenses.index');
+        // Fetch categories with total expenses
+        $categories = Category::with('expenses')->get();
+
+        return $dataTable->render('expenses.index', compact('categories'));
     }
+
+
+    // public function index(ExpenseDataTable $dataTable)
+    // {
+    //     return $dataTable->render('expenses.index');
+    // }
     /**
      * Display a listing of expenses.
      */
