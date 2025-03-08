@@ -193,6 +193,7 @@ Publish the DataTables Configuration (if needed)
 
 Step-22
 Create a DataTable Class
-    
+    php artisan make:datatable ExpenseDataTable
+
 
 
