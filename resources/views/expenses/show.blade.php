@@ -17,15 +17,22 @@
         </div>
 
         <div class="mt-6 flex gap-3">
-            <a href="{{ route('expenses.index') }}" 
-               class="flex items-center gap-1 bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition">
-                ⬅️ Back
-            </a>
+            
 
-            <a href="{{ route('expenses.edit', $expense) }}" 
-               class="flex items-center gap-1 bg-yellow-500 text-white px-4 py-2 rounded-lg shadow hover:bg-yellow-600 transition">
-                ✏️ Edit
-            </a>
+            <form action="{{ route('expenses.edit', $expense->id) }}" method="GET">
+                <button type="submit"
+                class="flex items-center gap-1 bg-gray-500 text-white px-4 py-2 rounded-lg shadow hover:bg-gray-600 transition">
+                    <i class="fas fa-edit mr-1"></i> ⬅️ Back
+                </button>
+            </form>
+
+
+            <form action="{{ route('expenses.edit', $expense->id) }}" method="GET">
+                <button type="submit"
+                        class="px-4 py-2 bg-green-500 text-white px-4 py-2  rounded-lg hover:bg-green-600 transition flex items-center">
+                    <i class="fas fa-edit mr-1"></i> ✏️ Edit
+                </button>
+            </form>
 
             <form action="{{ route('expenses.destroy', $expense) }}" method="POST" onsubmit="return confirm('Are you sure?');">
                 @csrf
