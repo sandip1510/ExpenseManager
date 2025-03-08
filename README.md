@@ -183,3 +183,16 @@ Improve UI with Tailwind CSS
     npm install tailwindcss
     npx tailwindcss init
 
+Step-20
+Install Laravel DataTables
+    composer require yajra/laravel-datatables-oracle
+
+Step-21
+Publish the DataTables Configuration (if needed)
+    php artisan vendor:publish --tag=datatables
+
+Step-22
+Create a DataTable Class
+    
+
+

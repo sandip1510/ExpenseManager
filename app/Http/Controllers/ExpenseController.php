@@ -7,28 +7,48 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Expense;
 use App\Models\Category;
 use App\Http\Requests\StoreExpenseRequest; // Import the Form Request class
+use App\DataTables\ExpenseDataTable;
+
 
 class ExpenseController extends Controller
 {
+
+    
+
+    public function index(ExpenseDataTable $dataTable)
+    {
+        return $dataTable->render('expenses.index');
+    }
     /**
      * Display a listing of expenses.
      */
-    public function index(Request $request)
-    {
-        $query = Expense::where('user_id', auth()->id()); // Ensure users see only their expenses
+    // public function index(Request $request)
+    // {
+    //     $query = Expense::where('user_id', auth()->id()); // Ensure users see only their expenses
     
-        if ($request->filled('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
-        }
     
-        if ($request->filled('date')) {
-            $query->whereDate('date', $request->date);
-        }
+    //     $expenses = $query->orderBy('date','desc')->get();
     
-        $expenses = $query->latest()->paginate(10);
-    
-        return view('expenses.index', compact('expenses'));
-    }
+    //     return view('expenses.index', compact('expenses'));
+    // }
+
+    // public function index(Request $request)
+    // {
+    //     if ($request->ajax()) {
+    //         $expenses = Expense::where('user_id', auth()->id())->with('category')->orderBy('date', 'desc');
+
+    //         return DataTables::of($expenses)
+    //             ->addColumn('action', function ($expense) {
+    //                 return view('expenses.partials.actions', compact('expense'))->render();
+    //             })
+    //             ->editColumn('amount', function ($expense) {
+    //                 return '$' . number_format($expense->amount, 2);
+    //             })
+    //             ->make(true);
+    //     }
+
+    //     return view('expenses.index');
+    // }
     
     
 
