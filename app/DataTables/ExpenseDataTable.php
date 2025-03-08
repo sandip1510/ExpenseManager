@@ -20,7 +20,8 @@ class ExpenseDataTable extends DataTable
         return $model->newQuery()
             ->select('expenses.id', 'expenses.category_id', 'expenses.amount', 'expenses.date') // Explicit table name
             ->with('category')
-            ->where('expenses.user_id', auth()->id());
+            ->where('expenses.user_id', auth()->id())
+            ->orderBy('expenses.date', 'desc');
     }
 
     
