@@ -25,42 +25,75 @@
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
        
         <script>
-    $(document).ready(function () {
-        let table = $('#expenses-table').DataTable({
+            $(document).ready(function () {
+                let table = $('#expenses-table').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('expenses.index') }}",
+                    columns: [
+                        { data: 'category.name', name: 'category.name' },
+                        { data: 'amount', name: 'amount' },
+                        { data: 'date', name: 'date' },
+                        { data: 'action', name: 'action', orderable: false, searchable: false }
+                    ],
+                    dom: '<"flex justify-between items-center mb-4"lf>rt<"flex justify-between items-center mt-4"ip>',
+                    language: {
+                        search: "",
+                        searchPlaceholder: "Search expenses...",
+                        lengthMenu: "Show _MENU_ entries"
+                    }
+                });
+
+                // Style search input
+                $(".dataTables_filter input")
+                    .addClass("border border-gray-300 rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none");
+
+                // Style pagination buttons after DataTable initializes
+                setTimeout(() => {
+                    $(".dataTables_paginate .paginate_button")
+                        .addClass("px-4 py-2 mx-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-blue-500 hover:text-white transition cursor-pointer border border-gray-300");
+
+                    $(".dataTables_paginate .paginate_button.current")
+                        .addClass("bg-blue-500 text-white font-bold border-blue-500");
+                    
+                    $(".dataTables_paginate .paginate_button.disabled")
+                        .addClass("opacity-50 cursor-not-allowed bg-gray-300 text-gray-500");
+                }, 500);
+            });
+        </script>
+
+        <script>
+            
+            $(document).ready(function () {
+    let tableElement = $('#categories-table');
+    
+    if (tableElement.length) {  // Ensure the table exists before initializing DataTable
+        let table = tableElement.DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('expenses.index') }}",
+            ajax: "{{ route('categories.index') }}",
             columns: [
-                { data: 'category.name', name: 'category.name' },
-                { data: 'amount', name: 'amount' },
-                { data: 'date', name: 'date' },
-                { data: 'action', name: 'action', orderable: false, searchable: false }
+                { data: 'id', name: 'id', defaultContent: '' }, 
+                { data: 'name', name: 'name', defaultContent: '' }, 
+                { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: '' }
             ],
             dom: '<"flex justify-between items-center mb-4"lf>rt<"flex justify-between items-center mt-4"ip>',
             language: {
                 search: "",
-                searchPlaceholder: "Search expenses...",
+                searchPlaceholder: "Search categories...",
                 lengthMenu: "Show _MENU_ entries"
+            },
+            drawCallback: function () {
+                $(".dataTables_paginate .paginate_button")
+                    .addClass("px-4 py-2 mx-1 border border-gray-300 rounded-lg bg-gray-200 text-gray-700 hover:bg-blue-500 hover:text-white transition-all duration-300");
             }
         });
+    } else {
+        console.error("Error: #categories-table not found on the page.");
+    }
+});
 
-        // Style search input
-        $(".dataTables_filter input")
-            .addClass("border border-gray-300 rounded-lg px-4 py-2 focus:ring-blue-500 focus:border-blue-500 outline-none");
-
-        // Style pagination buttons after DataTable initializes
-        setTimeout(() => {
-            $(".dataTables_paginate .paginate_button")
-                .addClass("px-4 py-2 mx-1 bg-gray-200 text-gray-700 rounded-lg hover:bg-blue-500 hover:text-white transition cursor-pointer border border-gray-300");
-
-            $(".dataTables_paginate .paginate_button.current")
-                .addClass("bg-blue-500 text-white font-bold border-blue-500");
-            
-            $(".dataTables_paginate .paginate_button.disabled")
-                .addClass("opacity-50 cursor-not-allowed bg-gray-300 text-gray-500");
-        }, 500);
-    });
-</script>
+        </script>
 
 
 

@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ExpenseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\CategoryController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -24,11 +25,20 @@ Route::middleware('auth')->group(function () {
     // Expense management
     Route::resource('expenses', ExpenseController::class); // Index, Create, Store, Edit, Update, Destroy
 
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::post('/add-category', [ExpenseController::class, 'addCategory'])->name('add.category');
+    Route::resource('categories', CategoryController::class);
+
+
+    // Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    // Route::post('/add-category', [ExpenseController::class, 'addCategory'])->name('add.category');
+
+    // Route::get('/categories-index', [CategoryController::class, 'index'])->name('categories.index');
 
 
 });
+
+
+
+
 
 
 
