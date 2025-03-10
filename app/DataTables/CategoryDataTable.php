@@ -14,20 +14,19 @@ class CategoryDataTable extends DataTable
             ->addColumn('action', function ($category) {
                 return '<a href="'.route('categories.show', $category->id).'" class="px-3 py-1 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600">👁️ View</a>';
             })
-            ->rawColumns(['action']); // Ensures buttons are rendered as HTML
+            ->filterColumn('total_amount', function ($query, $keyword) {
+                $query->havingRaw('SUM(expenses.amount) LIKE ?', ["%{$keyword}%"]);
+            })
+            ->rawColumns(['action']);
     }
-
-    public function query(Category $model)
-    {
-
-            $categories = Category::with('expenses') // Eager load expenses
-                ->leftJoin('expenses', 'categories.id', '=', 'expenses.category_id') // Use leftJoin to include categories without expenses
-                ->select('categories.id', 'categories.name') // Select category fields
-                ->selectRaw('SUM(expenses.amount) as total_amount') // Calculate total amount
-                ->groupBy('categories.id', 'categories.name') ;// Group by category id and name
-    
-            return $categories;
-    }
+        public function query(Category $model)
+            {
+                return $model->newQuery()
+                    ->select('categories.id', 'categories.name')
+                    ->leftJoin('expenses', 'categories.id', '=', 'expenses.category_id')
+                    ->selectRaw('SUM(expenses.amount) as total_amount')
+                    ->groupBy('categories.id', 'categories.name');
+            }
 
     public function html()
     {

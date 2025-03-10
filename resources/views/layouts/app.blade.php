@@ -13,13 +13,51 @@
 
         <style>
         </style>
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-        
+        <!-- Add this simple CSS in your app.blade.php -->
+        <style>
+            /* Categories Table Fix */
+            #categories-table {
+                border: 1px solid #e2e8f0;
+                border-radius: 0.5rem;
+                overflow: hidden;
+            }
+
+            #categories-table th {
+                background-color: #f7fafc;
+                padding: 0.75rem 1.5rem;
+                font-weight: 600;
+                color: #4a5568;
+                border-bottom: 2px solid #e2e8f0;
+            }
+
+            #categories-table td {
+                padding: 0.75rem 1.5rem;
+                border-bottom: 1px solid #e2e8f0;
+                background-color: white;
+            }
+
+            #categories-table_filter input {
+                border: 1px solid #cbd5e0 !important;
+                border-radius: 0.375rem !important;
+                padding: 0.5rem 1rem !important;
+                margin-bottom: 1rem;
+            }
+
+            #categories-table_paginate .paginate_button {
+                border: 1px solid #cbd5e0 !important;
+                border-radius: 0.375rem !important;
+                padding: 0.25rem 0.75rem !important;
+                margin: 0 0.25rem !important;
+            }
+
+            #categories-table_paginate .paginate_button.current {
+                background: #3b82f6 !important;
+                color: white !important;
+                border-color: #3b82f6 !important;
+            }
+        </style>        
                 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
-
-
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>

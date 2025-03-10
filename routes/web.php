@@ -28,10 +28,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', CategoryController::class);
 
 
-    // Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    // Route::post('/add-category', [ExpenseController::class, 'addCategory'])->name('add.category');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    Route::post('/add-category', [ExpenseController::class, 'addCategory'])->name('add.category');
 
-    // Route::get('/categories-index', [CategoryController::class, 'index'])->name('categories.index');
+    Route::get('/categories-index', [CategoryController::class, 'index'])->name('categories.index');
 
 
 });

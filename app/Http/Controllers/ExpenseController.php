@@ -24,43 +24,6 @@ class ExpenseController extends Controller
     }
 
 
-    // public function index(ExpenseDataTable $dataTable)
-    // {
-    //     return $dataTable->render('expenses.index');
-    // }
-    /**
-     * Display a listing of expenses.
-     */
-    // public function index(Request $request)
-    // {
-    //     $query = Expense::where('user_id', auth()->id()); // Ensure users see only their expenses
-    
-    
-    //     $expenses = $query->orderBy('date','desc')->get();
-    
-    //     return view('expenses.index', compact('expenses'));
-    // }
-
-    // public function index(Request $request)
-    // {
-    //     if ($request->ajax()) {
-    //         $expenses = Expense::where('user_id', auth()->id())->with('category')->orderBy('date', 'desc');
-
-    //         return DataTables::of($expenses)
-    //             ->addColumn('action', function ($expense) {
-    //                 return view('expenses.partials.actions', compact('expense'))->render();
-    //             })
-    //             ->editColumn('amount', function ($expense) {
-    //                 return '$' . number_format($expense->amount, 2);
-    //             })
-    //             ->make(true);
-    //     }
-
-    //     return view('expenses.index');
-    // }
-    
-    
-
     /**
      * Show the form for creating a new expense.
      */
