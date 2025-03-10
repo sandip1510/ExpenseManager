@@ -75,6 +75,7 @@
             columns: [
                 { data: 'id', name: 'id', defaultContent: '' }, 
                 { data: 'name', name: 'name', defaultContent: '' }, 
+                { data: 'total_amount', name: 'total_amount', defaultContent: '' }, 
                 { data: 'action', name: 'action', orderable: false, searchable: false, defaultContent: '' }
             ],
             dom: '<"flex justify-between items-center mb-4"lf>rt<"flex justify-between items-center mt-4"ip>',

@@ -31,17 +31,13 @@
             <table id="categories-table" class="w-full rounded-lg overflow-hidden">
                 <thead>
                     <tr class="bg-gray-100">
+                        <th class="px-4 py-2">Id</th>
                         <th class="px-4 py-2">Category</th>
                         <th class="px-4 py-2">Total Amount</th>
+                        <th class="px-4 py-2">Action</th>                        
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($categories as $category)
-                        <tr class="border-b">
-                            <td class="px-4 py-2">{{ $category->name }}</td>
-                            <td class="px-4 py-2 font-semibold">{{ number_format($category->expenses->sum('amount'), 2) }}</td>
-                        </tr>
-                    @endforeach
                 </tbody>
             </table>
         </div>
